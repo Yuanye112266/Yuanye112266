@@ -1,0 +1,5 @@
+table{border-collapse: collapse;
+background: #FFFF00;}
+td{border: black solid thin;
+width: 300px;}
+.tip{color: red;}

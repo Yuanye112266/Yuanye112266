@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>表格</title>
+		<style type="text/css">
+			table{border-collapse:collapse;}
+			td,th{border:1px solid black;
+			       width:250px;
+				   background:chartreuse;}
+		</style>
+	</head>
+	<center>
+		<body>
+			<table>
+				<thead>
+					<tr><td colspan="2"><center>注册信息表</center></td></tr>
+				</thead>
+			
+				<tbody>
+					<tr align="middle">
+					<td>姓名</td>
+					<td>
+						<input size="30" type="text" >
+						<!-- <input type="checkbox" >男<input type="checkbox">女 -->
+					</td>
+					</tr>
+					<tr align="middle">
+					<td>年龄</td>
+					<td>
+						<input size="30" type="text" >
+						<!-- <input type="checkbox" >男<input type="checkbox">女 -->
+					</td>
+					</tr>
+					<tr><td align="middle">性别</td><td><input type="radio" >保密<input type="radio">男<input type="radio">女</td></tr>
+					<tr>
+						<td align="middle">爱好</td>
+						<td>
+							<input type="checkbox" >旅游
+							<input type="checkbox" >登山
+							<input type="checkbox" >滑雪
+							<input type="checkbox" >游泳
+						</td>
+					</tr>
+					<tr>
+						<td align="middle">学历</td>
+						<td align="middle">
+							<select size="2" multiple="multiple">
+								<option>本科</option>
+								<option>研究生</option>
+								<option>博士</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td align="middle">自我介绍	</td>
+						<td><textarea cols="40" rows="5">本人</textarea></td>
+					</tr>
+					<tr><td align="middle" colspan="2"><input type="button" value="提交"><input type="button" value="清空"></td></tr>
+				</tbody>
+			</table>
+		</body>
+	</center>
+</html>
