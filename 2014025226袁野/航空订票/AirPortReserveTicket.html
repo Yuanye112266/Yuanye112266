@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>航空订票</title>
+		<script src="jquery-3.4.1.min%20(1).js" type="text/javascript">
+			
+		</script>
+		<style type="text/css">
+			
+			.infor{/* padding-left: 50px; */
+			width: 1000px;}
+			select{width: 180px;}
+			select,div,input{
+						/* width: 800px; */
+			               border: 1px solid #ccc;
+			               padding: 7px 0px;
+			               border-radius: 3px;
+			               padding-left:5px;
+			               -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+			               box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+			               -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+			               -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+			               transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s
+			           }
+					   
+					   select{width: 164px;}
+			
+			.head_1{
+				padding-top: 0px;
+				height: 18px;
+				width: 80%;
+				border-radius: 200px;
+				border:#DDFFFF solid thin;
+			background: #CCCCCC;}
+			.head{
+				width: 80%;
+				border-radius: 200px;
+				border:#DDFFFF solid thin;
+			background: #CCCCCC;}
+			#root{
+				margin: 0 auto;
+				margin-top: 50px;
+				width: 1200px;
+				/* height: 800px; */
+				background: #ddffff;
+				border: #000000 solid thin;}
+		</style>
+		
+		<script type="text/javascript">
+			var common =[];
+			var sum = 0;
+			//添加按钮的插入的html
+			JSONOBject = {code:"*购票类型<select class='text titype'><option>成人票</option><option>儿童票</option><option>婴儿票</option></select>"+
+							"<button style='float:right' onclick='closeWindow(this)'>X</button><br/><br/>"+
+							"*乘客姓名<input class='text name' type='text'>"+
+							"<font size='2' class = 'nameError' color = 'red'></font><br><br/>"+
+							"*证件类型<select class='text idtype'><option>身份证</option><option>护照</option><option>军官证</option></select><br><br/>"+
+							"*证件号码<input class='text idNumber' type='text'>"+
+							"<font size='2' class = 'idError' color = 'red'></font><br><br/>",
+							code3:"<font size='1'>在常用联系人中搜索</font><input type = 'text' style='height: 5px'>",
+							code2:"<font>乘机人:</font><font class='passName'></font><font style='float:right'>作为常用联系人</font></font><input type='checkbox' value='selected' style = 'float:right;margin-top:5px'> "}
+			var PassergentInf=[{'tiType':'成人票','name':'smith','idType':'护照','idNumber':'152224199505112014'},
+							   {'tiType':'成人票','name':'smith','idType':'护照','idNumber':'152224199505112014'}]
+			var Index=['*购票类型','*乘客姓名','*证件类型','*证件号码']
+			
+			/*初始画界面，便利数组读取数据，并创建新的div将信息添加到界面中
+			*/
+			function initApparent(){
+				for(i=0;i<PassergentInf.length;i++){
+					//创建 读取DIV,并写入数据,插入节点
+					var passergent=document.createElement('div');
+					
+					//添加常用联系人选项
+					var pahead = document.createElement('div');
+					
+					$(pahead).addClass('head_1')
+					
+					pahead.innerHTML =  JSONOBject.code2
+					
+					$(passergent).prepend(pahead)
+					
+					
+					//动态的增加类名
+					$(passergent).addClass('infor')
+					
+					passergent.style.width='1000px'
+					var span01 = document.createElement('span')
+					span01.innerHTML='<br /><br />'
+					var span02 = document.createElement('span')
+					span02.innerHTML='<br /><br />'
+					var span03 = document.createElement('span')
+					span03.innerHTML='<br /><br />'
+					var span04 = document.createElement('span')
+					span04.innerHTML='<br /><br />'
+					var span1 = document.createElement('span')
+					span1.innerText=Index[0]
+					var span2 = document.createElement('span')
+					span2.innerText=Index[1]
+					var span3 = document.createElement('span')
+					span3.innerText=Index[2]
+					var span4 = document.createElement('span')
+					span4.innerText=Index[3]
+					
+					//创建文本框和select节点
+					var input_1=document.createElement('select');
+					
+					input_1.innerHTML='<option select = "selected">'+PassergentInf[i].tiType+'</option>'+
+					'<option select = "selected">儿童票</option>'+
+					'<option select = "selected">婴儿票</option>'+
+					'<option select = "selected">成人票</option>';
+					var input_2=document.createElement('input');
+					input_2.type='text';input_2.value=PassergentInf[i].name;
+					$(input_2).addClass('name');
+					
+					var input_3=document.createElement('select');
+					input_3.innerHTML='<option select = "selected">'+PassergentInf[i].idType+'</option>'+
+					'<option select = "selected">身份证</option>'+
+					'<option select = "selected">护照</option>'+
+					'<option select = "selected">军官证</option>';
+					var input_4=document.createElement('input');
+					input_4.type='text';input_4.value=PassergentInf[i].idNumber;
+					$(input_4).addClass('idNumber');
+					
+					
+					passergent.appendChild(span1)
+					passergent.appendChild(input_1);
+					passergent.appendChild(span01)
+					passergent.appendChild(span2)
+					passergent.appendChild(input_2);
+					passergent.appendChild(span02)
+					passergent.appendChild(span3)
+					passergent.appendChild(input_3);
+					passergent.appendChild(span03)
+					passergent.appendChild(span4)
+					passergent.appendChild(input_4);
+					passergent.appendChild(span04)
+					
+					//添加警告文本块
+					$(input_2).after('<font size="2" class = "nameError" color = "red"></font>');
+					$(input_4).after('<font size="2" class="idError" color = "red"></font>');
+					//动态增加按钮并添加click关闭事件
+					$(input_1).after("<button style = 'float: right' class = 'closeWindow'> X</button>")
+					child_2.appendChild(passergent)
+					//获取并改变乘客的数量和价格
+					var passergentSum = document.getElementsByClassName('infor');
+					
+					sum = passergentSum.length;
+					
+					document.getElementById('sum').innerHTML = sum;
+					
+					document.getElementById('prise').innerHTML = sum * 2200;
+					//在表头添加乘客姓名
+					$('.passName').text(PassergentInf[i].name)
+ 				}
+				
+				//动态添加click事件
+				$(".closeWindow").bind("click",function(){
+					
+					var parent = this.parentNode;
+					
+					$(parent).remove();
+					
+				});
+			}
+			
+			/*添加乘客*/
+			function addPassergent(){
+				var newpassergent = document.createElement('div');
+				//动态的增加类名
+				$(newpassergent).addClass('infor')
+				
+				newpassergent.innerHTML=JSONOBject.code;
+				
+				$('#child_2').append(newpassergent)
+				
+				var passergentSum = document.getElementsByClassName('infor');
+				
+				//获取并改变乘客的数量和价格
+				sum = passergentSum.length;
+				
+				document.getElementById('sum').innerHTML = sum;
+				
+				document.getElementById('prise').innerHTML = sum * 2200;
+				
+				// var child_2=document.getElementById('child_2');
+				
+				// child_2.appendChild(newpassergent)
+				
+			}
+			//删除乘客信息
+			function closeWindow(e){
+				
+				//获取父节点
+				var parent = e.parentNode;
+				
+				$(parent).remove();
+ 			}
+			//核对信息
+			function deemAllInfo(){
+				var name = document.getElementsByClassName('name');
+				var idNumber = document.getElementsByClassName('idNumber');
+				var idError = document.getElementsByClassName('idError');
+				var nameError = document.getElementsByClassName('nameError');
+				var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+				
+				for(i = 0; i < name.length;i++){
+					if(name[i].value.length < 5 || name[i].value.length > 12 || name[i].value == ''){
+						nameError[i].innerHTML = '用户名格式错误'
+					}else{
+						nameError[i].innerHTML = '';
+					}
+				}
+				for(i = 0; i < idNumber.length;i++){
+					isTrue = reg.test(idNumber[i].value);
+					if(!isTrue){
+						idError[i].innerHTML= '证件号码格式错误'
+					}else{
+						idError[i].innerHTML = ''
+					}
+				}
+				
+			}
+		</script>
+	</head>
+	<body onload="initApparent()" bgcolor="#00AAFF">
+		<font size = "7" style = "margin-left: 200px;" face = "方正小标宋简体" color = "#DDFFFF">联盟·机票</font>
+			<div id = "root">
+				
+				<font size="5" face="楷体" color="#0000FF">机票预定</font><hr color="#FF0000"  />
+				<div id="child_1" class="body">
+					<center><font face="楷体" color="chartreuse">选择→</font>
+					<font face="楷体" color="chartreuse">预定→</font>
+					<font face="楷体" color="chartreuse">核对→</font>
+					<font face="楷体" color="#CCCCCC">支付→</font>
+					<font face="楷体" color="#CCCCCC">完成</font></center>
+				<div class="limb" id="child_11">
+					<div class="head"><font size="4" face="仿宋GB2312" color="#DDFFFF">丨 航班信息</font></div>
+				</div>
+				<div class="limb" id="child_12">
+					<table width="1000px">
+						<tr><td>海南航空 Hut718</td>
+						<td><a href="">[修改航班][退改签]</a></td>
+						<td>2013年06月17日 11:00&nbsp;&nbsp;周水子国际机场--起飞</td>
+						<td>￥2200/成人</td></tr>
+						<tr><td>机舱738经停 Hut718</td>
+						<td><a href="">[修改仓位]</a></td>
+						<td>2013年06月17日 15:40&nbsp;&nbsp;保安国际机场--到达</td>
+						<td>(含税费)</td></tr>
+					</table><hr />
+					<table width="500px"><tr><td>总价:￥<span id="prise"></span>(含税费)</td><td>人数:<span id='sum'></span>人</td><td><a href="">机票明细</a></td></tr></table>
+				</div>
+				</div>
+				<div class="body" id="child_2">
+					<div class="head"><font size="4" face="仿宋GB2312" color="#DDFFFF">丨 乘客信息</font>
+					<font size="2" face="仿宋GB2312" color="#FF0000">请准确填写乘客信息(姓名、证件号码)，以免在办理登记手续时发生问题</font></div>
+				</div>
+				<input style="width: 100px; margin-left: 900px;" type="button" onclick
+				="addPassergent()" id="" value="增加" /><br>
+				<input onclick="deemAllInfo()" style="width: 100px; margin-left:450px;" type="button" value="提交" />
+			</div>
+	</body>
+</html>
